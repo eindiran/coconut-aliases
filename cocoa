@@ -1,0 +1,48 @@
+#!/bin/bash
+# cocoa
+# Script used to create a useful alias for compiling coconut to python3.5
+INPUT_SCRIPT=""
+OUTPUT_SCRIPT=""
+INPUT_SET=false
+RUN=false
+while [[ $# -gt 0 ]]
+do
+    key="$1"
+    case $key in
+        --help|-h)
+            printf "\nUsage:\tcocoa [--run] <input_script> [<output_script>]\n\n"
+            exit 0
+            ;;
+        --run|-r)
+            RUN=true
+            ;;
+        *)
+            if [ "$INPUT_SET" = false ] ; then
+                INPUT_SCRIPT="$key"
+                INPUT_SET=true
+            elif [ "$key" = "-o" ] ; then
+                shift
+                OUTPUT_SCRIPT="$1"
+            else
+                printf "Unknown Option: \"%s\"\n" "$key"
+            fi
+            ;;
+    esac
+    shift
+done
+
+if [ $INPUT_SET = false ] ; then
+    printf "\nDid not recieve an input filename. Cannot continue.\n\n"
+    exit 1
+fi
+
+if [ "$OUTPUT_SCRIPT" = "" ] ; then
+    OUTPUT_SCRIPT=${INPUT_SCRIPT%.*}
+    coconut --target 3.5 --line-numbers --verbose "$INPUT_SCRIPT" "$OUTPUT_SCRIPT" --mypy
+else
+    coconut --target 3.5 --line-numbers --verbose "$INPUT_SCRIPT" "$OUTPUT_SCRIPT" --mypy
+fi
+
+if [ $RUN = true ] ; then
+    python3.5 "$OUTPUT_SCRIPT"/"$OUTPUT_SCRIPT".py
+fi
