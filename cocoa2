@@ -38,9 +38,9 @@ fi
 
 if [ "$OUTPUT_SCRIPT" = "" ] ; then
     OUTPUT_SCRIPT=${INPUT_SCRIPT%.*}
-    coconut --target 2.7 --line-numbers --verbose "$INPUT_SCRIPT" "$OUTPUT_SCRIPT" --mypy
+    coconut --strict --target 2.7 --line-numbers --verbose "$INPUT_SCRIPT" "$OUTPUT_SCRIPT" --mypy
 else
-    coconut --target 2.7 --line-numbers --verbose "$INPUT_SCRIPT" "$OUTPUT_SCRIPT" --mypy
+    coconut --strict --target 2.7 --line-numbers --verbose "$INPUT_SCRIPT" "$OUTPUT_SCRIPT" --mypy
 fi
 
 if [ $RUN = true ] ; then
