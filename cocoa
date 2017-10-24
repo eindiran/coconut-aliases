@@ -41,12 +41,12 @@ MYPY_ARGS="--ignore-missing-imports"
 
 if [ "$OUTPUT_SCRIPT" = "" ] ; then
     OUTPUT_SCRIPT=${INPUT_SCRIPT%.*}
-    coconut --target 3.5 ${ALL_ARGS} "$INPUT_SCRIPT" "$OUTPUT_SCRIPT" --mypy "$MYPY_ARGS"
+    coconut --strict --target 3.5 ${ALL_ARGS} "$INPUT_SCRIPT" "$OUTPUT_SCRIPT" --mypy "$MYPY_ARGS"
     if [ $RUN = true ] ; then
         python3.5 "$OUTPUT_SCRIPT"/"$OUTPUT_SCRIPT".py
     fi
 else
-    coconut --target 3.5 ${ALL_ARGS} "$INPUT_SCRIPT" "$OUTPUT_SCRIPT" --mypy "$MYPY_ARGS"
+    coconut --strict --target 3.5 ${ALL_ARGS} "$INPUT_SCRIPT" "$OUTPUT_SCRIPT" --mypy "$MYPY_ARGS"
     if [ $RUN = true ] ; then
         python3.5 "$OUTPUT_SCRIPT"/"$OUTPUT_SCRIPT".py
     fi
